@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ReactPrac</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- SCRIPTS FOR REACT, REACTDOM, and BABEL -->
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <div id="root1"></div>
+    
+    <!-- set up a third root div to display numbers -->
+    <div id="root2"></div>
+
+    <!-- use JSX object example -->
+    <div id="root3"></div>
+   
+    <!-- BABEL w.in body script, placed after divs -->
+    <script type="text/babel">
+    
+    // Render React Elements w.in script
+    ReactDom.render(
+        // this is the element
+        <div>Hello, world.</div>   
+        // this is the target
+        document.getElementById("root")
+    )
+    
+    // Another way to write the above would be
+    var element = <div>Hello, world!</div>
+
+    ReactDom.render(
+        element,
+        document.getElementById("root1")
+    )
+
+    // JSX = a synthax extension to JS
+        // allows React Elements to be written inside JS
+        // using HTML tags
+    
+    // W.out jsx the above would be
+    var element = React.createElement(
+        'h1',
+        null,
+        'Hello, world?'
+    )
+
+    // Create function to render numbers in root2
+    var num = 0;
+
+    function updateNum() {
+
+        ReactDom.render(
+            <div>{num++}</div>
+            document.getElementById("root2")
+        )
+    }
+
+    setInterval(updateNum, 100)
+
+    // Using JSx w. JS Expressions examples
+
+    // exOne
+    var str = "World!"
+    var element = <h1>Hello, {str}</h1>
+
+    // exTwo
+    var item = { 
+        name: "Cheese",
+        price: 5
+    }
+    var element = <p>{item.name} : ${item.price} </p>
+
+    // exThree
+    var length = 20
+    var width = 10
+
+    function  calculateArea(x,y) {
+        return x * y
+    }
+    var element = <div>The Area is: {calculateArea(length, width)}</div>
+
+    // JSX w. Attributes
+
+    // exOne - string literal
+    var element = <button className="deleteButton"> Delete </button>
+
+    // exTwo - embedding
+    var element = <img src ={product.imageURL}></img>
+
+    // REMEMBER: quotes will be treated as a STRING
+    // exThree - don't do the following
+    // var element = <img src = "{product.imageURL}"></img>
+
+    // JSX w. Empty Tag
+
+    // ex
+    var element = <input className="nameInput"/>
+
+    // Style Objects instead of string literal
+
+    // example
+    var styleObject = {
+        backgroundColor: 'red',
+        color: 'blue',
+        fontSize: 25,
+        width: 100
+    }
+    var element = <input style={styleObject}/>
+
+    // Inline Object
+
+    var element = <input style = {{width: 200, height: 100}}/>
+
+    // Nested Elements - must be wrapped in a single element
+    var element = (
+        // single element - 'Hey, world' is nested inside
+        <div>
+            <div>Hey, World</div>
+            <div>Hey, World</div>
+        </div>
+    )
+
+    // JSX Objects - behave like normal JS objects
+
+    var product = {name: "apple", stock: 0}
+
+    if(product.stock < 0){
+        var element = <h1>The product named {product.name} is not in stock</h1>
+    }
+    else{
+        var element = <h1>The product named {product.name} and has {product.stock} units in stock</h1>
+    }
+
+    ReactDom.render(
+        element,
+        document.getElementById("root3")
+    )
+    </script>
+    
+</body>
+</html>
